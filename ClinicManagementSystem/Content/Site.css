@@ -1,0 +1,3 @@
+﻿.navbar-dark.bg-dark .btn-outline-light:hover {
+    color: rgb(var(--bs-dark-rgb));
+}
