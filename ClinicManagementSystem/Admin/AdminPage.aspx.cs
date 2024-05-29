@@ -5,12 +5,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace ClinicManagementSystem.App_Pages.Appointment
+namespace ClinicManagementSystem.Admin
 {
-    public partial class BookAppointment : System.Web.UI.Page
+    public partial class AdminPage : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
         }
     }
 }

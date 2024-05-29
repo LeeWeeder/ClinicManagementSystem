@@ -69,7 +69,11 @@ namespace ClinicManagementSystem
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (HttpContext.Current.User.IsInRole("admin"))
+            {
+                var adminLink = LoginView.FindControl("adminLink");
+                adminLink.Visible = true;
+            }
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
