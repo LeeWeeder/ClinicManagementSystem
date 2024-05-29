@@ -74,7 +74,7 @@
             </nav>
         </header>
 
-        <div class="container body-content">
+        <div class="container body-content mt-5">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
             <hr />

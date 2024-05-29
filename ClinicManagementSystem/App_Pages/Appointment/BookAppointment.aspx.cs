@@ -1,4 +1,8 @@
-﻿using System;
+﻿using ClinicManagementSystem.DBClass;
+using ClinicManagementSystem.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,14 +15,23 @@ namespace ClinicManagementSystem.App_Pages.Appointment
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (HttpContext.Current.User.IsInRole("patient"))
+            if (!IsPostBack)
             {
-                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "IsFirstTimeUserPrompt.hide();", true);
+                if (HttpContext.Current.User.IsInRole("patient"))
+                {
+                    ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "IsFirstTimeUserPrompt.hide();", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "IsFirstTimeUserPrompt.show();", true);
+                    PatientCaseRow.Visible = false;
+                }
             }
-            else
-            {
-                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "IsFirstTimeUserPrompt.show();", true);
-            }
+        }
+
+        protected void CheckAvailabilityButton_Click(object sender, EventArgs e)
+        {
+            var PatientCaseId = PatientCaseDropDownList.SelectedValue;
         }
     }
 }

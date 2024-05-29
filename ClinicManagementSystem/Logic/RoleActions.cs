@@ -1,12 +1,7 @@
 ﻿using ClinicManagementSystem.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics;
-using System.Linq;
-using System.Web;
 
 namespace ClinicManagementSystem.Logic
 {
@@ -31,6 +26,12 @@ namespace ClinicManagementSystem.Logic
             {
                 IdRoleResult = roleManager.Create(new IdentityRole { Name = "patient" });
             }
+
+            if (!roleManager.RoleExists("staff"))
+            {
+                IdRoleResult = roleManager.Create(new IdentityRole { Name = "staff" });
+            }
+
 
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             var applicationUser = new ApplicationUser
