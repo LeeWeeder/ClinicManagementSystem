@@ -11,6 +11,14 @@ namespace ClinicManagementSystem.App_Pages.Appointment
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (HttpContext.Current.User.IsInRole("patient"))
+            {
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "IsFirstTimeUserPrompt.hide();", true);
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "IsFirstTimeUserPrompt.show();", true);
+            }
         }
     }
 }

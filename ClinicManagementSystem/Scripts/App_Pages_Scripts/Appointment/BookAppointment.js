@@ -1,4 +1,8 @@
 ﻿$(document).ready(function () {
-    $('#IsFirstTimeUserPrompt').modal('show');
     $('[data-toggle="tooltip"]').tooltip();
+});
+
+var IsFirstTimeUserPrompt = new bootstrap.Modal(document.getElementById('IsFirstTimeUserPrompt'), {
+    backdrop: 'static',
+    keyboard: false
 });

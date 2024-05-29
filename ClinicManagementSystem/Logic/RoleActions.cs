@@ -27,6 +27,11 @@ namespace ClinicManagementSystem.Logic
                 IdRoleResult = roleManager.Create(new IdentityRole { Name = "admin" });
             }
 
+            if (!roleManager.RoleExists("patient"))
+            {
+                IdRoleResult = roleManager.Create(new IdentityRole { Name = "patient" });
+            }
+
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             var applicationUser = new ApplicationUser
             {
@@ -38,10 +43,6 @@ namespace ClinicManagementSystem.Logic
             if (!userManager.IsInRole(userManager.FindByEmail("admin@admin.com").Id, "admin"))
             {
                 IdUserResult = userManager.AddToRole(userManager.FindByEmail("admin@admin.com").Id, "admin");
-                if (!IdUserResult.Succeeded)
-                {
-                    Debug.WriteLine(IdUserResult.Errors);
-                }
             }
         }
     }
