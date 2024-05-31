@@ -6,9 +6,9 @@ namespace ClinicManagementSystem.Models
     {
         public int AppointmentId { get; set; }
 
-        public int AppointmentPatientCaseId { get; set; }
+        public int? AppointmentPatientCaseId { get; set; }
 
-        public int AppointmentAttendingStaffId { get; set; }
+        public int? AppointmentAttendingStaffId { get; set; }
 
         public DateTime AppointmentDate { get; set; }
 
@@ -16,7 +16,7 @@ namespace ClinicManagementSystem.Models
 
         public DateTime? AppointmentEndTime { get; set; }
 
-        public string AppointmentReasonForVisit { get; set; }
+        public string AppointmentType { get; set; }
 
         public Appointment() { }
 
@@ -28,7 +28,7 @@ namespace ClinicManagementSystem.Models
             DateTime AppointmentDate,
             DateTime AppointmentStartTime,
             DateTime? AppointmentEndTime,
-            string AppointmentReasonForVisit
+            string AppointmentType
         )
         {
             this.AppointmentId = AppointmentId;
@@ -37,7 +37,7 @@ namespace ClinicManagementSystem.Models
             this.AppointmentDate = AppointmentDate;
             this.AppointmentStartTime = AppointmentStartTime;
             this.AppointmentEndTime = AppointmentEndTime;
-            this.AppointmentReasonForVisit = AppointmentReasonForVisit;
+            this.AppointmentType = AppointmentType;
         }
 
         // Without ID
@@ -47,7 +47,7 @@ namespace ClinicManagementSystem.Models
             DateTime AppointmentDate,
             DateTime AppointmentStartTime,
             DateTime? AppointmentEndTime,
-            string AppointmentReasonForVisit
+            string AppointmentType
         )
         {
             this.AppointmentPatientCaseId = AppointmentPatientCaseId;
@@ -55,7 +55,19 @@ namespace ClinicManagementSystem.Models
             this.AppointmentDate = AppointmentDate;
             this.AppointmentStartTime = AppointmentStartTime;
             this.AppointmentEndTime = AppointmentEndTime;
-            this.AppointmentReasonForVisit = AppointmentReasonForVisit;
+            this.AppointmentType = AppointmentType;
+        }
+
+        // For checking
+        public Appointment(
+            int? AppointmentAttendingStaffId,
+            DateTime AppointmentDate,
+            DateTime AppointmentStartTime
+        )
+        {
+            this.AppointmentAttendingStaffId = AppointmentAttendingStaffId;
+            this.AppointmentDate = AppointmentDate;
+            this.AppointmentStartTime = AppointmentStartTime;
         }
     }
 }

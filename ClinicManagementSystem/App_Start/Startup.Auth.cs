@@ -11,7 +11,8 @@ using ClinicManagementSystem.Models;
 
 namespace ClinicManagementSystem
 {
-    public partial class Startup {
+    public partial class Startup
+    {
 
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301883
         public void ConfigureAuth(IAppBuilder app)
@@ -32,7 +33,21 @@ namespace ClinicManagementSystem
                 {
                     OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
                         validateInterval: TimeSpan.FromMinutes(30),
-                        regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
+                        regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager)),
+                    OnApplyRedirect = ctx =>
+                    {
+                        if (!IsAjaxRequest(ctx.Request))
+                        {
+                            if (ctx.Request.User.Identity.IsAuthenticated)
+                            {
+                                ctx.Response.Redirect("/Forbidden.aspx");
+                            }
+                            else
+                            {
+                                ctx.Response.Redirect(ctx.RedirectUri);
+                            }
+                        }
+                    }
                 }
             });
             // Use a cookie to temporarily store information about a user logging in with a third party login provider
@@ -64,6 +79,19 @@ namespace ClinicManagementSystem
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+
+
+        }
+        private static bool IsAjaxRequest(IOwinRequest request)
+        {
+            IReadableStringCollection query = request.Query;
+            if ((query != null) && (query["X-Requested-With"] == "XMLHttpRequest"))
+            {
+                return true;
+            }
+            IHeaderDictionary headers = request.Headers;
+            return ((headers != null) && (headers["X-Requested-With"] == "XMLHttpRequest"));
         }
     }
 }
+

@@ -152,3 +152,5 @@ C:\Users\stude\ClinicManagementSystem\ClinicManagementSystem\bin\Microsoft.Owin.
 C:\Users\stude\ClinicManagementSystem\ClinicManagementSystem\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\stude\ClinicManagementSystem\ClinicManagementSystem\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\stude\ClinicManagementSystem\ClinicManagementSystem\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\stude\ClinicManagementSystem\ClinicManagementSystem\obj\Debug\ClinicManagementSystem.Migrations.AddPropertiesMigration.resources
+C:\Users\stude\ClinicManagementSystem\ClinicManagementSystem\obj\Debug\ClinicManagementSystem.csproj.GenerateResource.Cache

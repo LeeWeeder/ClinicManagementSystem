@@ -7,7 +7,7 @@ namespace ClinicManagementSystem.DBClass
 {
     public static class AppointmentDB
     {
-        public static bool CheckAppointmentAvailability(Appointment appointment)
+        public static bool IsAppointmentAvailable(Appointment appointment)
         {
             using (SqlConnection conn = DatabaseConnection.GetConnection())
             {
@@ -32,24 +32,23 @@ namespace ClinicManagementSystem.DBClass
             }
         }
 
-        public static void InsertAppointment(Appointment appointment)
+        public static int InsertAppointment(Appointment appointment)
         {
             using (SqlConnection conn = DatabaseConnection.GetConnection())
             {
-                string query = "INSERT INTO Appointment (AppointmentId, AppointmentPatientCaseId, AppointmentAttendingStaffId, AppointmentDate, AppointmentStartTime, AppointmentEndTime, AppointmentReasonForVisit) VALUES (@AppointmentId, @AppointmentPatientCaseId, @AppointmentAttendingStaffId, @AppointmentDate, @AppointmentStartTime, @AppointmentEndTime, @AppointmentReasonForVisit)";
+                string query = "INSERT INTO Appointment (AppointmentPatientCaseId, AppointmentAttendingStaffId, AppointmentDate, AppointmentStartTime, AppointmentEndTime, AppointmentType) VALUES (@AppointmentPatientCaseId, @AppointmentAttendingStaffId, @AppointmentDate, @AppointmentStartTime, @AppointmentEndTime, @AppointmentType)";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@AppointmentId", appointment.AppointmentId);
-                    cmd.Parameters.AddWithValue("@AppointmentPatientCaseId", appointment.AppointmentPatientCaseId);
-                    cmd.Parameters.AddWithValue("@AppointmentAttendingStaffId", appointment.AppointmentAttendingStaffId);
+                    cmd.Parameters.AddWithValue("@AppointmentPatientCaseId", (object)appointment.AppointmentPatientCaseId ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@AppointmentAttendingStaffId", (object)appointment.AppointmentAttendingStaffId ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@AppointmentDate", appointment.AppointmentDate);
                     cmd.Parameters.AddWithValue("@AppointmentStartTime", appointment.AppointmentStartTime);
                     cmd.Parameters.AddWithValue("@AppointmentEndTime", (object)appointment.AppointmentEndTime ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@AppointmentReasonForVisit", appointment.AppointmentReasonForVisit);
+                    cmd.Parameters.AddWithValue("@AppointmentType", appointment.AppointmentType);
 
                     conn.Open();
-                    cmd.ExecuteNonQuery();
+                    return Convert.ToInt32(cmd.ExecuteScalar());
                 }
             }
         }
@@ -80,7 +79,7 @@ namespace ClinicManagementSystem.DBClass
                                 AppointmentDate = Convert.ToDateTime(reader["AppointmentDate"]),
                                 AppointmentStartTime = Convert.ToDateTime(reader["AppointmentStartTime"]),
                                 AppointmentEndTime = reader["AppointmentEndTime"] as DateTime?,
-                                AppointmentReasonForVisit = reader["AppointmentReasonForVisit"].ToString()
+                                AppointmentType = reader["AppointmentType"].ToString()
                             };
                         }
                     }
@@ -114,7 +113,7 @@ namespace ClinicManagementSystem.DBClass
                                 AppointmentDate = Convert.ToDateTime(reader["AppointmentDate"]),
                                 AppointmentStartTime = Convert.ToDateTime(reader["AppointmentStartTime"]),
                                 AppointmentEndTime = reader["AppointmentEndTime"] as DateTime?,
-                                AppointmentReasonForVisit = reader["AppointmentReasonForVisit"].ToString()
+                                AppointmentType = reader["AppointmentType"].ToString()
                             };
 
                             appointments.Add(appointment);
@@ -140,7 +139,7 @@ namespace ClinicManagementSystem.DBClass
                     cmd.Parameters.AddWithValue("@AppointmentDate", newAppointment.AppointmentDate);
                     cmd.Parameters.AddWithValue("@AppointmentStartTime", newAppointment.AppointmentStartTime);
                     cmd.Parameters.AddWithValue("@AppointmentEndTime", (object)newAppointment.AppointmentEndTime ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@AppointmentReasonForVisit", newAppointment.AppointmentReasonForVisit);
+                    cmd.Parameters.AddWithValue("@AppointmentType", newAppointment.AppointmentType);
 
                     conn.Open();
                     cmd.ExecuteNonQuery();

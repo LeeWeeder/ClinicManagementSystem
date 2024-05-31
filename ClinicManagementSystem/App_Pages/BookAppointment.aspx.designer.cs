@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ClinicManagementSystem.App_Pages.Appointment {
+namespace ClinicManagementSystem.App_Pages {
     
     
     public partial class BookAppointment {
@@ -49,22 +49,22 @@ namespace ClinicManagementSystem.App_Pages.Appointment {
         protected global::System.Web.UI.WebControls.TextBox AppointmentStartTime;
         
         /// <summary>
-        /// AppointmentTypeRadioButtonGroup control.
+        /// AppointmentType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList AppointmentTypeRadioButtonGroup;
+        protected global::System.Web.UI.WebControls.RadioButtonList AppointmentType;
         
         /// <summary>
-        /// DoctorDropDownList control.
+        /// PhysiciansDropDownList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DoctorDropDownList;
+        protected global::System.Web.UI.WebControls.DropDownList PhysiciansDropDownList;
         
         /// <summary>
         /// CheckAvailabilityButton control.
