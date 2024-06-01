@@ -5,13 +5,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace ClinicManagementSystem
+namespace ClinicManagementSystem.Account
 {
-    public partial class _Default : Page
+    public partial class RegisterModal : System.Web.UI.UserControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
         }
     }
 }

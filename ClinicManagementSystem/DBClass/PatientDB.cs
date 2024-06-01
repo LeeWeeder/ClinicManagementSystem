@@ -5,19 +5,18 @@ using System.Data.SqlClient;
 
 namespace ClinicManagementSystem.DBClass
 {
-    public static class StaffDB
+    public static class PatientDB
     {
-        public static void InsertStaff(Staff staff)
+        public static void InsertPatient(Patient patient)
         {
             using (SqlConnection conn = DatabaseConnection.GetConnection())
             {
-                string query = "INSERT INTO Staff (StaffId, StaffClinicRoleId, StaffDepartmentId) VALUES (@StaffAspNetUsersId, @StaffClinicRoleId, @StaffDepartmentId)";
+                string query = "INSERT INTO Patient (PatientAspNetUsersId, PatientBirthDate) VALUES (@PatientAspNetUsersId, @PatientBirthDate)";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@StaffId", staff.StaffId);
-                    cmd.Parameters.AddWithValue("@StaffClinicRoleId", staff.StaffClinicRoleId);
-                    cmd.Parameters.AddWithValue("@StaffDepartmentId", (object)staff.StaffDepartmentId ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@PatientBirthDate", patient.PatientBirthDate);
+                    cmd.Parameters.AddWithValue("@PatientAspNetUsersId", (object)patient.PatientAspNetUsersId ?? DBNull.Value);
 
                     conn.Open();
                     try
@@ -32,13 +31,13 @@ namespace ClinicManagementSystem.DBClass
             }
         }
 
-        public static List<StaffWithDetails> GetStaff()
+        public static List<Patient> GetPatients()
         {
-            List<StaffWithDetails> staffs = new List<StaffWithDetails>();
+            List<Patient> patients = new List<Patient>();
 
             using (SqlConnection conn = DatabaseConnection.GetConnection())
             {
-                string query = "SELECT Staff.StaffId AS 'ID', Staff.StaffAspNetUsersId AS 'AspNetUsersId', Staff.StaffIsActive AS 'Active', AspNetUsers.LastName AS 'LastName', AspNetUsers.FirstName AS 'FirstName', AspNetUsers.MiddleName AS 'MiddleName', AspNetUsers.SexAtBirth AS 'SexAtBirth', AspNetUsers.Email AS 'Email', AspNetUsers.PhoneNumber AS 'ContactNumber', AspNetUsers.Username AS 'Username', ClinicRole.ClinicRoleName AS 'ClinicRole', Department.DepartmentName AS 'Department' FROM Staff JOIN AspNetUsers ON AspNetUsers.Id = Staff.StaffAspNetUsersId JOIN ClinicRole ON ClinicRole.ClinicRoleId = Staff.StaffClinicRoleId JOIN Department ON Department.DepartmentId = Staff.StaffDepartmentId";
+                string query = "SELECT * FROM Patient";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -49,22 +48,14 @@ namespace ClinicManagementSystem.DBClass
                         {
                             while (reader.Read())
                             {
-                                StaffWithDetails staff = new StaffWithDetails(
-                                    Convert.ToInt32(reader["ID"]),
-                                    Convert.ToBoolean(reader["Active"]),
-                                    reader["SexAtBirth"].ToString(),
-                                    reader["ClinicRole"].ToString(),
-                                    reader["Department"].ToString(),
-                                    reader["Email"].ToString(),
-                                    reader["ContactNumber"].ToString(),
-                                    reader["Username"].ToString(),
-                                    reader["FirstName"].ToString(),
-                                    reader["MiddleName"].ToString(),
-                                    reader["LastName"].ToString(),
-                                    reader["AspNetUsersId"].ToString()
-                                );
+                                Patient patient = new Patient
+                                {
+                                    PatientId = Convert.ToInt32(reader["PatientId"]),
+                                    PatientAspNetUsersId = reader["PatientAspNetUsersId"].ToString(),
+                                    PatientBirthDate = Convert.ToDateTime(reader["PatientBirthDate"])
+                                };
 
-                                staffs.Add(staff);
+                                patients.Add(patient);
                             }
                         }
                     }
@@ -73,7 +64,7 @@ namespace ClinicManagementSystem.DBClass
                         throw e;
                     }
 
-                    return staffs;
+                    return patients;
                 }
             }
         }
@@ -110,14 +101,13 @@ namespace ClinicManagementSystem.DBClass
             }
         }
 
-        public static StaffWithDetails GetStaffById(int id)
+        public static Staff GetStaffById(int id)
         {
-            StaffWithDetails staff = null;
+            Staff staff = null;
 
             using (SqlConnection conn = DatabaseConnection.GetConnection())
             {
-                string query = "SELECT Staff.StaffId AS 'ID', Staff.StaffIsActive AS 'Active', Staff.StaffAspNetUsersId AS 'AspNetUsersId', AspNetUsers.LastName AS 'LastName', AspNetUsers.FirstName AS 'FirstName', AspNetUsers.MiddleName AS MiddleName, AspNetUsers.SexAtBirth AS 'SexAtBirth', AspNetUsers.Email AS 'Email', AspNetUsers.PhoneNumber AS 'ContactNumber', AspNetUsers.Username AS 'Username', ClinicRole.ClinicRoleId, ClinicRole.ClinicRoleName AS 'ClinicRole', Department.DepartmentName AS 'Department' FROM Staff JOIN AspNetUsers ON AspNetUsers.Id = Staff.StaffAspNetUsersId JOIN ClinicRole ON ClinicRole.ClinicRoleId = Staff.StaffClinicRoleId JOIN Department ON Department.DepartmentId = Staff.StaffDepartmentId WHERE Staff.StaffId = @StaffId";
-                ;
+                string query = "SELECT * FROM Staff WHERE StaffId = @StaffId";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -129,20 +119,11 @@ namespace ClinicManagementSystem.DBClass
                     {
                         if (reader.Read())
                         {
-                            staff = new StaffWithDetails
+                            staff = new Staff
                             {
-                                Id = Convert.ToInt32(reader["ID"]),
-                                FirstName = reader["FirstName"].ToString(),
-                                MiddleName = reader["MiddleName"].ToString(),
-                                LastName = reader["LastName"].ToString(),
-                                ClinicRole = reader["ClinicRole"].ToString(),
-                                Department = reader["Department"].ToString(),
-                                IsActive = reader.GetBoolean(reader.GetOrdinal("Active")),
-                                SexAtBirth = reader["SexAtBirth"].ToString(),
-                                Username = reader["Username"].ToString(),
-                                Email = reader["Email"].ToString(),
-                                ContactNumber = reader["ContactNumber"].ToString(),
-                                AspNetUsersId = reader["AspNetUsersId"].ToString()
+                                StaffId = Convert.ToInt32(reader["StaffId"]),
+                                StaffClinicRoleId = Convert.ToInt32(reader["StaffClinicRoleId"]),
+                                StaffDepartmentId = reader["StaffDepartmentId"] as int?
                             };
                         }
                     }
@@ -156,11 +137,12 @@ namespace ClinicManagementSystem.DBClass
         {
             using (SqlConnection conn = DatabaseConnection.GetConnection())
             {
-                string query = "UPDATE Staff SET StaffClinicRoleId = @StaffClinicRoleId, StaffDepartmentId = @StaffDepartmentId WHERE StaffId = @StaffId";
+                string query = "UPDATE Staff SET StaffAspNetUsersId = @StaffAspNetUsersId, StaffClinicRoleId = @StaffClinicRoleId, StaffDepartmentId = @StaffDepartmentId WHERE StaffId = @StaffId";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@StaffId", newStaff.StaffId);
+                    cmd.Parameters.AddWithValue("@StaffAspNetUsersId", newStaff.StaffId);
                     cmd.Parameters.AddWithValue("@StaffClinicRoleId", newStaff.StaffClinicRoleId);
                     cmd.Parameters.AddWithValue("@StaffDepartmentId", (object)newStaff.StaffDepartmentId ?? DBNull.Value);
 
@@ -200,19 +182,18 @@ namespace ClinicManagementSystem.DBClass
             }
         }
 
-        public static List<Staff> GetStaffByClinicRoleName(string clinicRoleName, bool active)
+        public static List<Staff> GetStaffByClinicRoleName(string clinicRoleName)
         {
 
             List<Staff> staffList = new List<Staff>();
 
             using (SqlConnection conn = DatabaseConnection.GetConnection())
             {
-                string query = "SELECT Staff.*, ClinicRole.ClinicRoleName FROM Staff JOIN ClinicRole ON Staff.StaffClinicRoleId = ClinicRole.ClinicRoleId WHERE ClinicRole.ClinicRoleName = @StaffClinicRoleName AND StaffIsActive = @StaffIsActive";
+                string query = "SELECT Staff.*, ClinicRole.ClinicRoleName FROM Staff JOIN ClinicRole ON Staff.StaffClinicRoleId = ClinicRole.ClinicRoleId WHERE ClinicRoleName = @StaffClinicRoleName AND Staff.StaffIsActive = 1";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@StaffClinicRoleName", clinicRoleName);
-                    cmd.Parameters.AddWithValue("@StaffIsActive", active);
                     conn.Open();
                     try
                     {
@@ -222,11 +203,9 @@ namespace ClinicManagementSystem.DBClass
                             {
                                 Staff staff = new Staff
                                 {
-                                    StaffId = Convert.ToInt32(reader["StaffId"]),
+                                    StaffId = Convert.ToInt32(reader["StaffId"].ToString()),
                                     StaffClinicRoleId = Convert.ToInt32(reader["StaffClinicRoleId"]),
-                                    StaffDepartmentId = reader["StaffDepartmentId"] as int?,
-                                    StaffIsActive = reader.GetBoolean(reader.GetOrdinal("StaffIsActive")),
-                                    StaffAspNetUsersId = reader["StaffAspNetUsersId"].ToString()
+                                    StaffDepartmentId = reader["StaffDepartmentId"] as int?
                                 };
 
                                 staffList.Add(staff);

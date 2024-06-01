@@ -10,15 +10,15 @@
 namespace ClinicManagementSystem.Admin {
     
     
-    public partial class AdminPage {
+    public partial class Staff {
         
         /// <summary>
-        /// RegisterStaffButton control.
+        /// StaffList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton RegisterStaffButton;
+        protected global::System.Web.UI.WebControls.GridView StaffList;
     }
 }

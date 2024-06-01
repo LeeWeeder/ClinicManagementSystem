@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="Register" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="ClinicManagementSystem.Account.Register" %>
 
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
+    <!-- Style specific for this form -->
     <style>
         .form-check {
             margin: 0;
@@ -12,9 +13,6 @@
                 <asp:Literal runat="server" ID="ErrorMessage" />
             </p>
             <div class="card">
-                <div class="card-header bg-transparent">
-                    <asp:Label runat="server" ID="Heading" CssClass="h4 col ps-2"></asp:Label>
-                </div>
                 <div class="card-body p-4">
                     <div class="row">
                         <h5 class="mb-2 card-title">Create a new account</h5>
@@ -83,7 +81,7 @@
                             <asp:Label runat="server" AssociatedControlID="UserName" CssClass="form-label">Username<span class="text-danger">*</span></asp:Label>
                             <asp:TextBox runat="server" ID="UserName" CssClass="form-control" />
                             <asp:RequiredFieldValidator runat="server" ControlToValidate="UserName"
-                                CssClass="text-danger" ErrorMessage="UserName is required." Display="Dynamic" />
+                                CssClass="text-danger" ErrorMessage="Username is required." Display="Dynamic" />
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -110,7 +108,7 @@
                             <asp:Label runat="server" AssociatedControlID="ContactNumber" CssClass="form-label">Contact number<span class="text-danger">*</span></asp:Label>
                             <asp:TextBox runat="server" ID="ContactNumber" CssClass="form-control" />
                             <asp:RequiredFieldValidator runat="server" ControlToValidate="ContactNumber"
-                                CssClass="text-danger" ErrorMessage="Contact number is required." />
+                                CssClass="text-danger" ErrorMessage="Contact number is required." Display="Dynamic" />
                             <asp:RegularExpressionValidator runat="server" ControlToValidate="ContactNumber"
                                 CssClass="text-danger" ErrorMessage="Contact number must be a valid." Display="Dynamic" ValidationExpression="^\+?(\d{1,3})?[-. ]?\(?(\d{1,4})\)?[-. ]?(\d{1,4})[-. ]?(\d{1,9})$" />
                         </div>
@@ -129,7 +127,7 @@
                                 <asp:Label runat="server" AssociatedControlID="ConfirmPassword" CssClass="form-label">Confirm password<span class="text-danger">*</span></asp:Label>
                                 <asp:TextBox runat="server" ID="ConfirmPassword" TextMode="Password" CssClass="form-control" />
                                 <asp:RequiredFieldValidator runat="server" ControlToValidate="ConfirmPassword"
-                                    CssClass="text-danger" Display="Dynamic" ErrorMessage="The confirm password field is required." />
+                                    CssClass="text-danger" Display="Dynamic" ErrorMessage="Confirm password is required." />
                                 <asp:CompareValidator runat="server" ControlToCompare="Password" ControlToValidate="ConfirmPassword"
                                     CssClass="text-danger" Display="Dynamic" ErrorMessage="The password and confirmation password do not match." />
                             </div>
@@ -145,5 +143,4 @@
         </div>
     </div>
     <script src="../Scripts/Account_Scripts/Register.js"></script>
-    <script src="../Scripts/ButtonGroup.js"></script>
 </asp:Content>

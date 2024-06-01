@@ -1,6 +1,7 @@
 ﻿using ClinicManagementSystem.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Configuration;
 
 namespace ClinicManagementSystem.Logic
@@ -11,7 +12,7 @@ namespace ClinicManagementSystem.Logic
         {
             Models.ApplicationDbContext context = new ApplicationDbContext();
             IdentityResult IdRoleResult;
-            IdentityResult IdUserResult;
+            IdentityResult IdAdminResult;
 
             var roleStore = new RoleStore<IdentityRole>(context);
 
@@ -34,16 +35,20 @@ namespace ClinicManagementSystem.Logic
 
 
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-            var applicationUser = new ApplicationUser
+            userManager.PasswordValidator = new PasswordValidator
             {
-                UserName = "admin@admin.com",
-                Email = "admin@admin.com"
+                RequiredLength = 5
             };
-            IdUserResult = userManager.Create(applicationUser, ConfigurationManager.AppSettings["AppUserPasswordKey"]);
 
-            if (!userManager.IsInRole(userManager.FindByEmail("admin@admin.com").Id, "admin"))
+            var admin = new ApplicationUser
             {
-                IdUserResult = userManager.AddToRole(userManager.FindByEmail("admin@admin.com").Id, "admin");
+                UserName = "admin"
+            };
+            IdAdminResult = userManager.Create(admin, ConfigurationManager.AppSettings["AdminPassword"]);
+
+            if (!userManager.IsInRole(userManager.FindByName("admin").Id, "admin"))
+            {
+                IdAdminResult = userManager.AddToRole(userManager.FindByName("admin").Id, "admin");
             }
         }
     }

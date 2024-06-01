@@ -1,3 +1,8 @@
 ﻿.navbar-dark.bg-dark .btn-outline-light:hover {
     color: rgb(var(--bs-dark-rgb));
 }
+
+.navbar-dark.bg-dark .btn-outline-light {
+    color: white;
+}
+

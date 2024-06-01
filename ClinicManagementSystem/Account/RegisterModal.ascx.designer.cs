@@ -10,7 +10,7 @@
 namespace ClinicManagementSystem.Account {
     
     
-    public partial class Register {
+    public partial class RegisterModal {
         
         /// <summary>
         /// ErrorMessage control.
@@ -20,6 +20,15 @@ namespace ClinicManagementSystem.Account {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal ErrorMessage;
+        
+        /// <summary>
+        /// Heading control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Heading;
         
         /// <summary>
         /// LastName control.

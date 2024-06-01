@@ -7,63 +7,63 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ClinicManagementSystem.Account {
+namespace ClinicManagementSystem.Admin {
     
     
-    public partial class Login {
+    public partial class Dashboard {
         
         /// <summary>
-        /// ErrorMessage control.
+        /// NumberOfActivePhysicians control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder ErrorMessage;
+        protected global::System.Web.UI.WebControls.Label NumberOfActivePhysicians;
         
         /// <summary>
-        /// FailureText control.
+        /// NumberOfActivePatients control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal FailureText;
+        protected global::System.Web.UI.WebControls.Label NumberOfActivePatients;
         
         /// <summary>
-        /// Username control.
+        /// NumberOfNurses control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Username;
+        protected global::System.Web.UI.WebControls.Label NumberOfNurses;
         
         /// <summary>
-        /// Password control.
+        /// NumberOfLaboratoryPersonnel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Password;
+        protected global::System.Web.UI.WebControls.Label NumberOfLaboratoryPersonnel;
         
         /// <summary>
-        /// RememberMe control.
+        /// NumberOfPharmacists control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox RememberMe;
+        protected global::System.Web.UI.WebControls.Label NumberOfPharmacists;
         
         /// <summary>
-        /// RegisterHyperLink control.
+        /// NumberOfAssistivePersonnel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink RegisterHyperLink;
+        protected global::System.Web.UI.WebControls.Label NumberOfAssistivePersonnel;
     }
 }

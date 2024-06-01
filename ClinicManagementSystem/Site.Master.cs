@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -71,8 +68,8 @@ namespace ClinicManagementSystem
         {
             if (HttpContext.Current.User.IsInRole("admin"))
             {
-                var adminLink = LoginView.FindControl("adminLink");
-                adminLink.Visible = true;
+                Admin.Visible = true;
+                Staff.Visible = false;
             }
         }
 

@@ -1,11 +1,12 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="ClinicManagementSystem._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-
-    <div class="jumbotron">
-        <h1>ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-        <p><a href="App_Pages/BookAppointment.aspx" class="btn btn-primary btn-lg">Book appointment</a></p>
+    <div class="bg-light rounded-3 p-5">
+        <div class="container">
+            <h1 class="display-5 fw-bold">Clinic Management System</h1>
+            <p class="fs-4">Clinic description here</p>
+            <p><a href="App_Pages/BookAppointment.aspx" class="btn btn-primary btn-lg">Book appointment</a></p>
+        </div>
     </div>
 
     <div class="row">

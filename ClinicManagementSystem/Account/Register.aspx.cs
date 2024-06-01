@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using ClinicManagementSystem.DBClass;
 using System.Web.UI.WebControls;
 using System.Collections.Generic;
+using System.Net;
 
 namespace ClinicManagementSystem.Account
 {
@@ -23,11 +24,11 @@ namespace ClinicManagementSystem.Account
             if (!IsPostBack)
             {
                 BirthDate.Attributes["max"] = DateTime.Now.ToString("yyyy-MM-dd");
-                var HeadingText = Page.Title + " ";
+                // var HeadingText = Page.Title + " ";
 
                 if (isAdmin)
                 {
-                    HeadingText += "staff";
+                    // HeadingText += "staff";
                     EmailWithInputGroupContainer.Visible = true;
                     EmailContainer.Visible = false;
                     DepartmentAndClinicRoleContainer.Visible = true;
@@ -38,7 +39,7 @@ namespace ClinicManagementSystem.Account
                 }
                 else if (currentUser.IsInRole("staff"))
                 {
-                    HeadingText += "patient";
+                    // HeadingText += "patient";
                 }
                 else
                 {
@@ -46,64 +47,93 @@ namespace ClinicManagementSystem.Account
                     PasswordContainer.Visible = true;
                 }
 
-                Heading.Text = HeadingText;
+                // Heading.Text = HeadingText;
             }
         }
 
+        // Creates user
         protected void CreateUser_Click(object sender, EventArgs e)
         {
+            // Set the default role of the user that is to be registered to patient as out of the three possible insertion of users, two of which is patient is the role
             var userRole = "patient";
             
+            // Set the default returnUrl to the value passed in ReturnUrl argument if the user directly access a restricted page. 
             var returnUrl = Request.QueryString["ReturnUrl"];
 
-            string email = Email.Text.Trim();
-            string username = UserName.Text.Trim();
-            string password = Password.Text;
+            var email = Email.Text.Trim();
+            var username = UserName.Text.Trim();
+            var password = Password.Text;
+            var firstName = FirstName.Text.Trim();
+            var lastName = LastName.Text.Trim();
+            string department;
+            var middleName = MiddleName.Text.Trim();
 
-            if (isAdmin)
+            // Check if the current user that is registering is anonymous
+            if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                // TODO: Should listen for change in the url and cancel registration and booking appointment by deleting the initial appointment record.
+
+                // If anonynous, check if there is a value to the AppointmentId passed as navigational arguments
+                if (!string.IsNullOrEmpty(Request.QueryString["AppointmentId"]))
+                {
+                    // If there is value, which means, not null or empty then get the AppointmentId
+                    var AppointmentId = int.Parse(Request.QueryString["AppointmentId"]);
+
+                    // To avoid conflict in PatientCase of an Appointment, check if the set AppointmentId already have a PatientCase associated with it.
+                    // Get the appointment with the AppointmentId
+                    var appointment = AppointmentDB.GetAppointmentById(AppointmentId);
+
+                    // Check if patientCaseId is already set
+                    if (appointment.AppointmentPatientCaseId != null)
+                    {
+                        // TODO: Implement ways to notify the user that they cannot edit this appointment anymore.
+                        // Possible solutions: Throw page not found, throw forbidden access
+                        HttpContext.Current.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                    }
+                }
+            }
+            else if (isAdmin)
             {
                 userRole = "staff";
                 email = EmailWithInputGroup.Text.Split('@')[0].Trim() + "@cms.com";
                 username = email;
-                returnUrl = "/Admin/AdminPage.aspx";
+                returnUrl = "/Admin/Staff.aspx";
                 password = username;
+                department = DepartmentDropDownList.SelectedItem.Text;
             }
 
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
-
-            var firstName = FirstName.Text.Trim();
-            var lastName = LastName.Text.Trim();
-            var department = DepartmentDropDownList.SelectedItem.Text;
-            var middleName = MiddleName.Text.Trim();
 
             if (string.IsNullOrEmpty(middleName))
             {
                 middleName = null;
             }
 
-            var user = new ApplicationUser() { UserName = username, Email = email, FirstName = FirstName.Text, LastName = LastName.Text, MiddleName = middleName, PhoneNumber = ContactNumber.Text };
+            var user = new ApplicationUser() { UserName = username, Email = email, FirstName = FirstName.Text, LastName = LastName.Text, MiddleName = middleName, PhoneNumber = ContactNumber.Text, SexAtBirth = SexAtBirth.SelectedValue };
             IdentityResult result = manager.Create(user, password);
 
-            if (!result.Succeeded)
-            {
-                throw new Exception(isAdmin.ToString());
-            }
-
-            var userId = manager.FindByEmail(email).Id;
+            var userId = manager.FindByName(username).Id;
             result = manager.AddToRole(userId, userRole);
 
             if (result.Succeeded)
             {
-                StaffDB.InsertStaff(new Staff
+                if (isAdmin)
                 {
-                    StaffAspNetUsersId = userId,
-                    StaffDepartmentId = Convert.ToInt32(DepartmentDropDownList.SelectedValue),
-                    StaffClinicRoleId = Convert.ToInt32(ClinicRoleDropDownList.SelectedValue)
-                });
-
-                if (!isAdmin)
+                    StaffDB.InsertStaff(new Staff
+                    {
+                        StaffAspNetUsersId = userId,
+                        StaffDepartmentId = Convert.ToInt32(DepartmentDropDownList.SelectedValue),
+                        StaffClinicRoleId = Convert.ToInt32(ClinicRoleDropDownList.SelectedValue)
+                    });
+                }
+                else
                 {
+                    PatientDB.InsertPatient(new Patient
+                    {
+                        PatientAspNetUsersId = userId,
+                        PatientBirthDate = Convert.ToDateTime(BirthDate.Text)
+                    });
                     signInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
                 }
 
@@ -111,7 +141,7 @@ namespace ClinicManagementSystem.Account
             }
             else
             {
-                ErrorMessage.Text = result.Errors.FirstOrDefault();
+                ErrorMessage.Text = "Username or email already exists";
             }
         }
 

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace ClinicManagementSystem
 {
@@ -11,7 +7,13 @@ namespace ClinicManagementSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (HttpContext.Current.User.IsInRole("admin"))
+            {
+                if (HttpUtility.UrlDecode(Request.QueryString["ReturnUrl"]) == "/default.aspx")
+                {
+                    Response.Redirect("~/Admin/Dashboard.aspx");
+                }
+            }
         }
     }
 }

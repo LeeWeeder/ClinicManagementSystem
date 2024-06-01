@@ -195,14 +195,17 @@
     <Content Include="Account\Manage.aspx" />
     <Content Include="Account\ManageLogins.aspx" />
     <Content Include="Account\ManagePassword.aspx" />
-    <Content Include="Account\OpenAuthProviders.ascx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
+    <Content Include="Account\RegisterModal.ascx" />
+    <Content Include="Account\RegisterModal.ascx.js" />
     <Content Include="Account\ResetPassword.aspx" />
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
-    <Content Include="Admin\AdminPage.aspx" />
+    <Content Include="Admin\EditStaffDetails.aspx" />
+    <Content Include="Admin\Dashboard.aspx" />
+    <Content Include="Admin\Staff.aspx" />
     <Content Include="App_Pages\BookAppointment.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -254,7 +257,7 @@
     </Content>
     <Content Include="App_Pages\Web.config" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
-    <Content Include="Scripts\ButtonGroup.js" />
+    <EmbeddedResource Include="Scripts\Site.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
     <Content Include="Scripts\jquery-3.7.0.slim.js" />
@@ -360,13 +363,6 @@
     <Compile Include="Account\ManagePassword.aspx.designer.cs">
       <DependentUpon>ManagePassword.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Account\OpenAuthProviders.ascx.cs">
-      <DependentUpon>OpenAuthProviders.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Account\OpenAuthProviders.ascx.designer.cs">
-      <DependentUpon>OpenAuthProviders.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Account\Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -380,6 +376,13 @@
     </Compile>
     <Compile Include="Account\RegisterExternalLogin.aspx.designer.cs">
       <DependentUpon>RegisterExternalLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\RegisterModal.ascx.cs">
+      <DependentUpon>RegisterModal.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\RegisterModal.ascx.designer.cs">
+      <DependentUpon>RegisterModal.ascx</DependentUpon>
     </Compile>
     <Compile Include="Account\ResetPassword.aspx.cs">
       <DependentUpon>ResetPassword.aspx</DependentUpon>
@@ -409,12 +412,26 @@
     <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin\AdminPage.aspx.cs">
-      <DependentUpon>AdminPage.aspx</DependentUpon>
+    <Compile Include="Admin\EditStaffDetails.aspx.cs">
+      <DependentUpon>EditStaffDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Admin\AdminPage.aspx.designer.cs">
-      <DependentUpon>AdminPage.aspx</DependentUpon>
+    <Compile Include="Admin\EditStaffDetails.aspx.designer.cs">
+      <DependentUpon>EditStaffDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Staff.aspx.cs">
+      <DependentUpon>Staff.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Staff.aspx.designer.cs">
+      <DependentUpon>Staff.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Pages\BookAppointment.aspx.cs">
       <DependentUpon>BookAppointment.aspx</DependentUpon>
@@ -445,7 +462,9 @@
     <Compile Include="DBClass\DatabaseConnection.cs" />
     <Compile Include="DBClass\ClinicRoleDB.cs" />
     <Compile Include="DBClass\DepartmentDB.cs" />
+    <Compile Include="DBClass\PatientDB.cs" />
     <Compile Include="DBClass\StaffDB.cs" />
+    <Compile Include="Models\StaffWithDetails.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -472,6 +491,7 @@
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\ClinicRole.cs" />
     <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\Patient.cs" />
     <Compile Include="Models\PatientCase.cs" />
     <Compile Include="Models\PhysicianWithFullNameAndDepartment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
