@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI.WebControls;
 
-namespace ClinicManagementSystem.Admin
+namespace ClinicManagementSystem.AdminPage
 {
-    public partial class AdminPage : System.Web.UI.Page
+    public partial class EditStaffDetails : System.Web.UI.Page
     {
         
         protected void Page_Load(object sender, EventArgs e)
@@ -20,10 +20,16 @@ namespace ClinicManagementSystem.Admin
                 if (!string.IsNullOrEmpty(Request.QueryString["Id"]))
                 {
                     id = Convert.ToInt32(Request.QueryString["Id"]);
+
+                    if (StaffDB.GetStaffById(id) == null)
+                    {
+                        Response.Redirect("~/AdminPage/ManageStaff.aspx" + id);
+                        return;
+                    }
                 }
                 else
                 {
-                    Response.Redirect("~/Admin/Staff.aspx");
+                    Response.Redirect("~/AdminPage/ManageStaff.aspx");
                     return;
                 }
 
@@ -37,7 +43,6 @@ namespace ClinicManagementSystem.Admin
                 LoadDropDownListItems(clinicRoles, ClinicRoleDropDownList, selectedClinicRole, "ClinicRoleName", "ClinicRoleId");
 
                 EmailWithInputGroup.Text = staff.Email.Split('@')[0];
-                Username.Text = staff.Username;
                 FirstName.Text = staff.FirstName;
                 MiddleName.Text = staff.MiddleName;
                 LastName.Text = staff.LastName;
@@ -51,7 +56,6 @@ namespace ClinicManagementSystem.Admin
         protected void UpdateStaff_Click(object sender, EventArgs e)
         {
             var email = EmailWithInputGroup.Text.Split('@')[0].Trim() + "@cms.com";
-            var username = Username.Text.Trim();
             var firstName = FirstName.Text.Trim();
             var lastName = LastName.Text.Trim();
             var department = DepartmentDropDownList.SelectedItem.Text;
@@ -59,6 +63,7 @@ namespace ClinicManagementSystem.Admin
             var phoneNumber = ContactNumber.Text.Trim();
             var sexAtBirth = SexAtBirth.SelectedValue;
             var status = Convert.ToBoolean(Status.SelectedValue);
+
             var id = Convert.ToInt32(Request.QueryString["Id"]);
             var aspNetUsersId = StaffDB.GetStaffById(id).AspNetUsersId;
 
@@ -70,15 +75,21 @@ namespace ClinicManagementSystem.Admin
                 middleName = null;
             }
 
-            var user = new ApplicationUser() { UserName = username, Email = email, FirstName = firstName, LastName = lastName, MiddleName = middleName, PhoneNumber = phoneNumber, SexAtBirth = sexAtBirth, Id = aspNetUsersId };
+            var staff = manager.FindById(aspNetUsersId);
 
-            IdentityResult result = manager.Update(user);
+            staff.UserName = email;
+            staff.Email = email;
+            staff.FirstName = firstName;
+            staff.LastName = lastName;
+            staff.MiddleName = middleName;
+            staff.PhoneNumber = phoneNumber;
+            staff.SexAtBirth = sexAtBirth;
 
-            var userId = manager.FindByName(username).Id;
+            IdentityResult result = manager.Update(staff);
 
             if (result.Succeeded)
             {
-                StaffDB.UpdateStaff(new Models.Staff
+                StaffDB.UpdateStaff(new Staff
                 {
                     StaffId = id,
                     StaffDepartmentId = Convert.ToInt32(DepartmentDropDownList.SelectedValue),
@@ -86,7 +97,7 @@ namespace ClinicManagementSystem.Admin
                     StaffIsActive = status
                 });
 
-                IdentityHelper.RedirectToReturnUrl("/Admin/Staff.aspx", Response);
+                IdentityHelper.RedirectToReturnUrl("/AdminPage/ManageStaff.aspx", Response);
             }
             else
             {
@@ -101,6 +112,19 @@ namespace ClinicManagementSystem.Admin
             dropDownControl.DataValueField = valueField;
             dropDownControl.DataBind();
             dropDownControl.SelectedIndex = selectedIndex;
+        }
+
+        protected void ClinicRoleDropDownList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var clinicRole = (DropDownList)sender;
+            if (clinicRole.SelectedValue == "1")
+            {
+                DepartmentContainer.Visible = true;
+            }
+            else
+            {
+                DepartmentContainer.Visible = false;
+            }
         }
     }
 }

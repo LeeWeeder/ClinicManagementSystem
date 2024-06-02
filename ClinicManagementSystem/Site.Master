@@ -16,7 +16,7 @@
 </head>
 <body>
     <style>
-        .nav-item.btn.btn-light {
+        .nav-item .btn.btn-light {
             border: none;
             display: flex;
             align-items: center;
@@ -57,10 +57,8 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="navbar-collapse collapse" id="navbar">
-                        <ul class="navbar-nav" id="Staff" runat="server">
+                        <ul class="navbar-nav" id="Anonymous" runat="server" visible="false">
                             <li class="nav-item"><a runat="server" href="~/" class="nav-link">Home</a></li>
-                            <li class="nav-item"><a runat="server" href="~/About" class="nav-link">About</a></li>
-                            <li class="nav-item"><a runat="server" href="~/Contact" class="nav-link">Contact</a></li>
                         </ul>
                         <div class="ms-auto">
                             <asp:LoginView runat="server" ViewStateMode="Disabled" ID="LoginView">
@@ -87,42 +85,45 @@
         </header>
 
         <div class="container-fluid">
-            <div class="row">
+            <div class="d-flex">
                 <nav id="Admin" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" visible="false" runat="server">
                     <div class="position-sticky pt-3 sidebar-sticky">
                         <ul class="nav flex-column" runat="server">
-                            <li class="nav-item btn btn-light text-start"><a runat="server" href="~/Admin/Dashboard.aspx" class="text-secondary text-decoration-none">Dashboard</a></li>
-                             <li class="nav-item btn btn-light text-start"><a runat="server" href="~/Admin/Staff.aspx" class="text-secondary text-decoration-none">Staff</a></li>
-                            <li class="nav-item btn btn-light text-start"><a runat="server" href="~/Admin/AdminPage.aspx" class="text-secondary text-decoration-none">Departments</a></li>
-                            <li class="nav-item btn btn-light text-start"><a runat="server" href="~/Admin/AdminPage.aspx" class="text-secondary text-decoration-none">Clinic Roles</a></li>
-                            <li class="nav-item btn btn-light text-start"><a runat="server" href="~/Admin/AdminPage.aspx" class="text-secondary text-decoration-none">Patients</a></li>
+                            <li class="nav-item"><a href="/AdminPage/AdminDashboard.aspx" class="text-secondary btn btn-light text-start w-100">Dashboard</a></li>
+                            <li class="nav-item"><a href="/AdminPage/ManageStaff.aspx" class="text-secondary btn btn-light text-start w-100">Staff</a></li>
+                            <li class="nav-item"><a href="~/Admin/AdminPage.aspx" class="text-secondary btn btn-light text-start w-100">Departments</a></li>
+                            <li class="nav-item"><a href="~/Admin/AdminPage.aspx" class="text-secondary btn btn-light text-start w-100">Clinic Roles</a></li>
+                            <li class="nav-item"><a href="~/Admin/AdminPage.aspx" class="text-secondary btn btn-light text-start w-100">Patients</a></li>
+                            <li class="nav-item"><a href="/AdminPage/AppointmentsPage.aspx" class="text-secondary btn btn-light text-start w-100">Appointments</a></li>
                         </ul>
                     </div>
                 </nav>
-                <div class="col container body-content mt-4">
+                <nav id="Staff" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" visible="false" runat="server">
+                    <div class="position-sticky pt-3 sidebar-sticky">
+                        <ul class="nav flex-column" runat="server">
+                            <li class="nav-item"><a href="Dashboard.aspx" class="text-secondary btn btn-light text-start w-100">Dashboard</a></li>
+                            <li class="nav-item"><a href="Staff.aspx" class="text-secondary btn btn-light text-start w-100">Staff</a></li>
+                            <li class="nav-item"><a href="~/Admin/AdminPage.aspx" class="text-secondary btn btn-light text-start w-100">Departments</a></li>
+                            <li class="nav-item"><a href="~/Admin/AdminPage.aspx" class="text-secondary btn btn-light text-start w-100">Clinic Roles</a></li>
+                            <li class="nav-item"><a href="~/Admin/AdminPage.aspx" class="text-secondary btn btn-light text-start w-100">Patients</a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <nav id="Patient" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" visible="false" runat="server">
+                    <div class="position-sticky pt-3 sidebar-sticky">
+                        <ul class="nav flex-column" runat="server">
+                            <li class="nav-item mb-1"><a href="BookAppointment.aspx" class="btn btn-primary w-100">Book appointment</a></li>
+                            <li class="nav-item"><a href="PatientDashboard.aspx" class="text-secondary btn btn-light text-start w-100">Dashboard</a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="col container body-content mt-4 pb-5">
                     <asp:ContentPlaceHolder ID="MainContent" runat="server">
                     </asp:ContentPlaceHolder>
                 </div>
             </div>
         </div>
     </form>
-    <script>
-        const observer = new MutationObserver(function (mutations) {
-            var present = window.location.pathname + window.location.search;
-            if (present != sessionStorage.getItem("previous")) {
-                console.log(`URL changed from ${sessionStorage.getItem("previous")} to ${present}`);
-                sessionStorage.setItem("previous", present);
-            }
-        });
-        const config = { subtree: true, childList: true };
-
-        observer.observe(document, config);
-
-        function disconnectUrlChangeObserver() {
-            observer.disconnect();
-        }
-
-    </script>
     <script src="<%=ResolveClientUrl("~/Scripts/Site.js") %>" type="text/javascript"></script>
 </body>
 </html>

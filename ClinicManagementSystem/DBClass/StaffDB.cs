@@ -11,11 +11,11 @@ namespace ClinicManagementSystem.DBClass
         {
             using (SqlConnection conn = DatabaseConnection.GetConnection())
             {
-                string query = "INSERT INTO Staff (StaffId, StaffClinicRoleId, StaffDepartmentId) VALUES (@StaffAspNetUsersId, @StaffClinicRoleId, @StaffDepartmentId)";
+                string query = "INSERT INTO Staff (StaffAspNetUsersId, StaffClinicRoleId, StaffDepartmentId) VALUES (@StaffAspNetUsersId, @StaffClinicRoleId, @StaffDepartmentId)";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@StaffId", staff.StaffId);
+                    cmd.Parameters.AddWithValue("@StaffAspNetUsersId", staff.StaffAspNetUsersId);
                     cmd.Parameters.AddWithValue("@StaffClinicRoleId", staff.StaffClinicRoleId);
                     cmd.Parameters.AddWithValue("@StaffDepartmentId", (object)staff.StaffDepartmentId ?? DBNull.Value);
 
@@ -38,7 +38,7 @@ namespace ClinicManagementSystem.DBClass
 
             using (SqlConnection conn = DatabaseConnection.GetConnection())
             {
-                string query = "SELECT Staff.StaffId AS 'ID', Staff.StaffAspNetUsersId AS 'AspNetUsersId', Staff.StaffIsActive AS 'Active', AspNetUsers.LastName AS 'LastName', AspNetUsers.FirstName AS 'FirstName', AspNetUsers.MiddleName AS 'MiddleName', AspNetUsers.SexAtBirth AS 'SexAtBirth', AspNetUsers.Email AS 'Email', AspNetUsers.PhoneNumber AS 'ContactNumber', AspNetUsers.Username AS 'Username', ClinicRole.ClinicRoleName AS 'ClinicRole', Department.DepartmentName AS 'Department' FROM Staff JOIN AspNetUsers ON AspNetUsers.Id = Staff.StaffAspNetUsersId JOIN ClinicRole ON ClinicRole.ClinicRoleId = Staff.StaffClinicRoleId JOIN Department ON Department.DepartmentId = Staff.StaffDepartmentId";
+                string query = "SELECT Staff.StaffId AS 'ID', Staff.StaffAspNetUsersId AS 'AspNetUsersId', Staff.StaffIsActive AS 'Active', AspNetUsers.LastName AS 'LastName', AspNetUsers.FirstName AS 'FirstName', AspNetUsers.MiddleName AS 'MiddleName', AspNetUsers.SexAtBirth AS 'SexAtBirth', AspNetUsers.Email AS 'Email', AspNetUsers.PhoneNumber AS 'ContactNumber', ClinicRole.ClinicRoleName AS 'ClinicRole', Department.DepartmentName AS 'Department' FROM Staff JOIN AspNetUsers ON AspNetUsers.Id = Staff.StaffAspNetUsersId JOIN ClinicRole ON ClinicRole.ClinicRoleId = Staff.StaffClinicRoleId LEFT JOIN Department ON Department.DepartmentId = Staff.StaffDepartmentId";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -57,7 +57,6 @@ namespace ClinicManagementSystem.DBClass
                                     reader["Department"].ToString(),
                                     reader["Email"].ToString(),
                                     reader["ContactNumber"].ToString(),
-                                    reader["Username"].ToString(),
                                     reader["FirstName"].ToString(),
                                     reader["MiddleName"].ToString(),
                                     reader["LastName"].ToString(),
@@ -116,7 +115,7 @@ namespace ClinicManagementSystem.DBClass
 
             using (SqlConnection conn = DatabaseConnection.GetConnection())
             {
-                string query = "SELECT Staff.StaffId AS 'ID', Staff.StaffIsActive AS 'Active', Staff.StaffAspNetUsersId AS 'AspNetUsersId', AspNetUsers.LastName AS 'LastName', AspNetUsers.FirstName AS 'FirstName', AspNetUsers.MiddleName AS MiddleName, AspNetUsers.SexAtBirth AS 'SexAtBirth', AspNetUsers.Email AS 'Email', AspNetUsers.PhoneNumber AS 'ContactNumber', AspNetUsers.Username AS 'Username', ClinicRole.ClinicRoleId, ClinicRole.ClinicRoleName AS 'ClinicRole', Department.DepartmentName AS 'Department' FROM Staff JOIN AspNetUsers ON AspNetUsers.Id = Staff.StaffAspNetUsersId JOIN ClinicRole ON ClinicRole.ClinicRoleId = Staff.StaffClinicRoleId JOIN Department ON Department.DepartmentId = Staff.StaffDepartmentId WHERE Staff.StaffId = @StaffId";
+                string query = "SELECT Staff.StaffIsActive AS 'Active', Staff.StaffAspNetUsersId AS 'AspNetUsersId', AspNetUsers.LastName AS 'LastName', AspNetUsers.FirstName AS 'FirstName', AspNetUsers.MiddleName AS MiddleName, AspNetUsers.SexAtBirth AS 'SexAtBirth', AspNetUsers.Email AS 'Email', AspNetUsers.PhoneNumber AS 'ContactNumber', ClinicRole.ClinicRoleId, ClinicRole.ClinicRoleName AS 'ClinicRole', Department.DepartmentName AS 'Department' FROM Staff JOIN AspNetUsers ON AspNetUsers.Id = Staff.StaffAspNetUsersId JOIN ClinicRole ON ClinicRole.ClinicRoleId = Staff.StaffClinicRoleId LEFT JOIN Department ON Department.DepartmentId = Staff.StaffDepartmentId WHERE Staff.StaffId = @StaffId";
                 ;
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -131,7 +130,7 @@ namespace ClinicManagementSystem.DBClass
                         {
                             staff = new StaffWithDetails
                             {
-                                Id = Convert.ToInt32(reader["ID"]),
+                                Id = id,
                                 FirstName = reader["FirstName"].ToString(),
                                 MiddleName = reader["MiddleName"].ToString(),
                                 LastName = reader["LastName"].ToString(),
@@ -139,7 +138,6 @@ namespace ClinicManagementSystem.DBClass
                                 Department = reader["Department"].ToString(),
                                 IsActive = reader.GetBoolean(reader.GetOrdinal("Active")),
                                 SexAtBirth = reader["SexAtBirth"].ToString(),
-                                Username = reader["Username"].ToString(),
                                 Email = reader["Email"].ToString(),
                                 ContactNumber = reader["ContactNumber"].ToString(),
                                 AspNetUsersId = reader["AspNetUsersId"].ToString()
@@ -156,13 +154,14 @@ namespace ClinicManagementSystem.DBClass
         {
             using (SqlConnection conn = DatabaseConnection.GetConnection())
             {
-                string query = "UPDATE Staff SET StaffClinicRoleId = @StaffClinicRoleId, StaffDepartmentId = @StaffDepartmentId WHERE StaffId = @StaffId";
+                string query = "UPDATE Staff SET StaffClinicRoleId = @StaffClinicRoleId, StaffDepartmentId = @StaffDepartmentId, StaffIsActive = @StaffIsActive WHERE StaffId = @StaffId";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@StaffId", newStaff.StaffId);
                     cmd.Parameters.AddWithValue("@StaffClinicRoleId", newStaff.StaffClinicRoleId);
                     cmd.Parameters.AddWithValue("@StaffDepartmentId", (object)newStaff.StaffDepartmentId ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@StaffIsActive", newStaff.StaffIsActive);
 
                     conn.Open();
                     try

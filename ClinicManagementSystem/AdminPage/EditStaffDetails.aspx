@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Admin" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditStaffDetails.aspx.cs" Inherits="ClinicManagementSystem.Admin.AdminPage" %>
+﻿<%@ Page Title="Edit staff details" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditStaffDetails.aspx.cs" Inherits="ClinicManagementSystem.AdminPage.EditStaffDetails" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <style>
@@ -63,24 +63,18 @@
                     <h6 class="card-subtitle mb-2 text-muted mt-3">Clinic assignment details</h6>
                     <div class="row mb-3">
                         <div class="col">
+                            <asp:Label AssociatedControlID="ClinicRoleDropDownList" runat="server" CssClass="form-label">Clinic role<span class="text-danger">*</span></asp:Label>
+                            <asp:DropDownList runat="server" CssClass="form-select" ID="ClinicRoleDropDownList" OnSelectedIndexChanged="ClinicRoleDropDownList_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                            <asp:RequiredFieldValidator runat="server" ControlToValidate="ClinicRoleDropDownList" CssClass="text-danger" Display="Dynamic" ErrorMessage="Clinic role is required." InitialValue="Select clinic role" />
+                        </div>
+                        <div class="col" id="DepartmentContainer" runat="server" visible="false">
                             <asp:Label AssociatedControlID="DepartmentDropDownList" runat="server" CssClass="form-label">Department<span class="text-danger">*</span></asp:Label>
                             <asp:DropDownList runat="server" CssClass="form-select" ID="DepartmentDropDownList"></asp:DropDownList>
-                        </div>
-                        <div class="col">
-                            <asp:Label AssociatedControlID="ClinicRoleDropDownList" runat="server" CssClass="form-label">Clinic role<span class="text-danger">*</span></asp:Label>
-                            <asp:DropDownList runat="server" CssClass="form-select" ID="ClinicRoleDropDownList"></asp:DropDownList>
+                            <asp:RequiredFieldValidator runat="server" ControlToValidate="DepartmentDropDownList" CssClass="text-danger" Display="Dynamic" ErrorMessage="Department is required." InitialValue="Select department" />
                         </div>
                     </div>
                     <hr class="mt-4" />
                     <h6 class="card-subtitle mb-2 text-muted mt-3">Account details</h6>
-                    <div class="mb-3 row">
-                        <div class="col">
-                            <asp:Label runat="server" AssociatedControlID="Username" CssClass="form-label">Username<span class="text-danger">*</span></asp:Label>
-                            <asp:TextBox runat="server" ID="Username" CssClass="form-control" />
-                            <asp:RequiredFieldValidator runat="server" ControlToValidate="Username"
-                                CssClass="text-danger" ErrorMessage="Username is required." Display="Dynamic" />
-                        </div>
-                    </div>
                     <div class="row mb-3">
                         <div class="col">
                             <asp:Label runat="server" AssociatedControlID="EmailWithInputGroup" CssClass="form-label">Email<span class="text-danger">*</span></asp:Label>

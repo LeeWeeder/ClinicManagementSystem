@@ -7,10 +7,11 @@ namespace ClinicManagementSystem.DBClass
 {
     public static class PatientDB
     {
-        public static void InsertPatient(Patient patient)
+        public static int InsertPatient(Models.Patient patient)
         {
             using (SqlConnection conn = DatabaseConnection.GetConnection())
             {
+                int id;
                 string query = "INSERT INTO Patient (PatientAspNetUsersId, PatientBirthDate) VALUES (@PatientAspNetUsersId, @PatientBirthDate)";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -21,19 +22,20 @@ namespace ClinicManagementSystem.DBClass
                     conn.Open();
                     try
                     {
-                        cmd.ExecuteNonQuery();
+                        id = Convert.ToInt32(cmd.ExecuteScalar());
                     }
                     catch (SqlException e)
                     {
                         throw e;
                     }
                 }
+                return id;
             }
         }
 
-        public static List<Patient> GetPatients()
+        public static List<Models.Patient> GetPatients()
         {
-            List<Patient> patients = new List<Patient>();
+            List<Models.Patient> patients = new List<Models.Patient>();
 
             using (SqlConnection conn = DatabaseConnection.GetConnection())
             {
@@ -48,7 +50,7 @@ namespace ClinicManagementSystem.DBClass
                         {
                             while (reader.Read())
                             {
-                                Patient patient = new Patient
+                                Models.Patient patient = new Models.Patient
                                 {
                                     PatientId = Convert.ToInt32(reader["PatientId"]),
                                     PatientAspNetUsersId = reader["PatientAspNetUsersId"].ToString(),
@@ -101,17 +103,17 @@ namespace ClinicManagementSystem.DBClass
             }
         }
 
-        public static Staff GetStaffById(int id)
+        public static int? GetPatientByAspNetUsersId(string aspNetUsersId)
         {
-            Staff staff = null;
+            int? patientId = null;
 
             using (SqlConnection conn = DatabaseConnection.GetConnection())
             {
-                string query = "SELECT * FROM Staff WHERE StaffId = @StaffId";
+                string query = "SELECT * FROM Patient WHERE PatientAspNetUsersId = @PatientAspNetUsersId";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@StaffId", id);
+                    cmd.Parameters.AddWithValue("@PatientAspNetUsersId", aspNetUsersId);
 
                     conn.Open();
 
@@ -119,20 +121,16 @@ namespace ClinicManagementSystem.DBClass
                     {
                         if (reader.Read())
                         {
-                            staff = new Staff
-                            {
-                                StaffId = Convert.ToInt32(reader["StaffId"]),
-                                StaffClinicRoleId = Convert.ToInt32(reader["StaffClinicRoleId"]),
-                                StaffDepartmentId = reader["StaffDepartmentId"] as int?
-                            };
+                            patientId = reader["PatientId"] as int?;
                         }
                     }
                 }
             }
 
-            return staff;
+            return patientId;
         }
 
+        /*
         public static void UpdateStaff(Staff newStaff)
         {
             using (SqlConnection conn = DatabaseConnection.GetConnection())
@@ -221,5 +219,6 @@ namespace ClinicManagementSystem.DBClass
                 }
             }
         }
+        */
     }
 }

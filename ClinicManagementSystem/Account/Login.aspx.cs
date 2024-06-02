@@ -30,15 +30,15 @@ namespace ClinicManagementSystem.Account
 
                 // This doen't count login failures towards account lockout
                 // To enable password failures to trigger lockout, change to shouldLockout: true
-                var result = signinManager.PasswordSignIn(Username.Text, Password.Text, RememberMe.Checked, shouldLockout: false);
+                var result = signinManager.PasswordSignIn(Email.Text, Password.Text, RememberMe.Checked, shouldLockout: false);
 
                 switch (result)
                 {
                     case SignInStatus.Success:
-                        var userId = manager.FindByName(Username.Text).Id;
+                        var userId = manager.FindByName(Email.Text).Id;
                         if (manager.IsInRole(userId, "admin"))
                         {
-                            Response.Redirect("/Admin/Dashboard.aspx");
+                            Response.Redirect("/AdminPage/AdminDashboard.aspx");
                         } else
                         {
                             IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);

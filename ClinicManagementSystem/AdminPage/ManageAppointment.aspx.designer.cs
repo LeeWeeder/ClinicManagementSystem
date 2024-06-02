@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ClinicManagementSystem
+namespace ClinicManagementSystem.AdminPage
 {
 
 
-    public partial class About
+    public partial class ManageAppointment
     {
     }
 }

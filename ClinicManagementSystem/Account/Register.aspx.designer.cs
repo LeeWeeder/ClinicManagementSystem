@@ -85,15 +85,6 @@ namespace ClinicManagementSystem.Account {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl DepartmentAndClinicRoleContainer;
         
         /// <summary>
-        /// DepartmentDropDownList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DepartmentDropDownList;
-        
-        /// <summary>
         /// ClinicRoleDropDownList control.
         /// </summary>
         /// <remarks>
@@ -103,22 +94,22 @@ namespace ClinicManagementSystem.Account {
         protected global::System.Web.UI.WebControls.DropDownList ClinicRoleDropDownList;
         
         /// <summary>
-        /// UserNameField control.
+        /// DepartmentContainer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl UserNameField;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DepartmentContainer;
         
         /// <summary>
-        /// UserName control.
+        /// DepartmentDropDownList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox UserName;
+        protected global::System.Web.UI.WebControls.DropDownList DepartmentDropDownList;
         
         /// <summary>
         /// EmailWithInputGroupContainer control.

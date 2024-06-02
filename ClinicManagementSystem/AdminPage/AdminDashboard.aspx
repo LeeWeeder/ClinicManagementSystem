@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Dashboard" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="ClinicManagementSystem.Admin.Dashboard" %>
+﻿<%@ Page Title="Dashboard" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AdminDashboard.aspx.cs" Inherits="ClinicManagementSystem.AdminPage.AdminDashboard" %>
 
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container">
@@ -6,19 +6,19 @@
         <hr />
         <div class="row">
             <div class="col">
-                <a class="btn btn-primary d-flex p-4 flex-column">
+                <a class="btn btn-primary d-flex p-4 flex-column" href="Staff.aspx">
                     <h5>Active&nbsp;physicians</h5>
                     <asp:Label runat="server" ID="NumberOfActivePhysicians" CssClass="h1"></asp:Label>
                 </a>
             </div>
             <div class="col">
-                <a class="btn btn-primary d-flex p-4 flex-column">
+                <a class="btn btn-primary d-flex p-4 flex-column" href="">
                     <h5>Active&nbsp;patients</h5>
                     <asp:Label runat="server" ID="NumberOfActivePatients" CssClass="h1"></asp:Label>
                 </a>
             </div>
             <div class="col">
-                <a class="btn btn-primary d-flex p-4 flex-column">
+                <a class="btn btn-primary d-flex p-4 flex-column" href="Staff.aspx">
                     <h5>Active&nbsp;nurses</h5>
                     <asp:Label runat="server" ID="NumberOfNurses" CssClass="h1"></asp:Label>
                 </a>
@@ -26,19 +26,19 @@
         </div>
         <div class="row mt-4">
             <div class="col">
-                <a class="btn btn-primary d-flex p-4 flex-column">
+                <a class="btn btn-primary d-flex p-4 flex-column" href="Staff.aspx">
                     <h5>Laboratory&nbsp;personnel</h5>
                     <asp:Label runat="server" ID="NumberOfLaboratoryPersonnel" CssClass="h1"></asp:Label>
                 </a>
             </div>
             <div class="col">
-                <a class="btn btn-primary d-flex p-4 flex-column">
+                <a class="btn btn-primary d-flex p-4 flex-column" href="Staff.aspx">
                     <h5>Pharmacists</h5>
                     <asp:Label runat="server" ID="NumberOfPharmacists" CssClass="h1"></asp:Label>
                 </a>
             </div>
             <div class="col">
-                <a class="btn btn-primary d-flex p-4 flex-column">
+                <a class="btn btn-primary d-flex p-4 flex-column" href="Staff.aspx">
                     <h5>Assistive personnel</h5>
                     <asp:Label runat="server" ID="NumberOfAssistivePersonnel" CssClass="h1"></asp:Label>
                 </a>

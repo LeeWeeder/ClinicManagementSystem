@@ -7,6 +7,7 @@
             margin: 0;
         }
     </style>
+
     <div class="row justify-content-center">
         <div class="col-12 col-lg-8">
             <p class="text-danger">
@@ -63,27 +64,19 @@
                         <h6 class="card-subtitle mb-2 text-muted mt-3">Clinic assignment details</h6>
                         <div class="row mb-3">
                             <div class="col">
+                                <asp:Label AssociatedControlID="ClinicRoleDropDownList" runat="server" CssClass="form-label" >Clinic role<span class="text-danger">*</span></asp:Label>
+                                <asp:DropDownList runat="server" CssClass="form-select" ID="ClinicRoleDropDownList" OnSelectedIndexChanged="ClinicRoleDropDownList_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="ClinicRoleDropDownList" CssClass="text-danger" Display="Dynamic" ErrorMessage="Clinic role is required." InitialValue="Select clinic role" />
+                            </div>
+                            <div class="col" id="DepartmentContainer" runat="server" visible="false">
                                 <asp:Label AssociatedControlID="DepartmentDropDownList" runat="server" CssClass="form-label">Department<span class="text-danger">*</span></asp:Label>
                                 <asp:DropDownList runat="server" CssClass="form-select" ID="DepartmentDropDownList"></asp:DropDownList>
                                 <asp:RequiredFieldValidator runat="server" ControlToValidate="DepartmentDropDownList" CssClass="text-danger" Display="Dynamic" ErrorMessage="Department is required." InitialValue="Select department" />
-                            </div>
-                            <div class="col">
-                                <asp:Label AssociatedControlID="ClinicRoleDropDownList" runat="server" CssClass="form-label">Clinic role<span class="text-danger">*</span></asp:Label>
-                                <asp:DropDownList runat="server" CssClass="form-select" ID="ClinicRoleDropDownList"></asp:DropDownList>
-                                <asp:RequiredFieldValidator runat="server" ControlToValidate="ClinicRoleDropDownList" CssClass="text-danger" Display="Dynamic" ErrorMessage="Clinic role is required." InitialValue="Select clinic role" />
                             </div>
                         </div>
                     </div>
                     <hr class="mt-4" />
                     <h6 class="card-subtitle mb-2 text-muted mt-3">Account details</h6>
-                    <div class="mb-3 row" runat="server" id="UserNameField" visible="false">
-                        <div class="col">
-                            <asp:Label runat="server" AssociatedControlID="UserName" CssClass="form-label">Username<span class="text-danger">*</span></asp:Label>
-                            <asp:TextBox runat="server" ID="UserName" CssClass="form-control" />
-                            <asp:RequiredFieldValidator runat="server" ControlToValidate="UserName"
-                                CssClass="text-danger" ErrorMessage="Username is required." Display="Dynamic" />
-                        </div>
-                    </div>
                     <div class="row mb-3">
                         <div class="col">
                             <div runat="server" id="EmailWithInputGroupContainer" visible="false">
@@ -96,10 +89,12 @@
                                     CssClass="text-danger" ErrorMessage="Email is required." Display="Dynamic" />
                             </div>
                             <div runat="server" id="EmailContainer" visible="true">
-                                <asp:Label runat="server" AssociatedControlID="Email" CssClass="form-label">Email</asp:Label>
+                                <asp:Label runat="server" AssociatedControlID="Email" CssClass="form-label">Email<span class="text-danger">*</span></asp:Label>
                                 <asp:TextBox runat="server" ID="Email" CssClass="form-control" TextMode="Email" />
                                 <asp:RegularExpressionValidator runat="server" ControlToValidate="Email"
                                     CssClass="text-danger" ErrorMessage="Email must be a valid." Display="Dynamic" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" />
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="Email"
+                                    CssClass="text-danger" ErrorMessage="Email is required." Display="Dynamic" />
                             </div>
                         </div>
                     </div>
@@ -113,7 +108,7 @@
                                 CssClass="text-danger" ErrorMessage="Contact number must be a valid." Display="Dynamic" ValidationExpression="^\+?(\d{1,3})?[-. ]?\(?(\d{1,4})\)?[-. ]?(\d{1,4})[-. ]?(\d{1,9})$" />
                         </div>
                     </div>
-                    <div id="PasswordContainer" runat="server" visible="false">
+                    <div id="PasswordContainer" runat="server">
                         <div class="row mb-3">
                             <div class="col">
                                 <asp:Label runat="server" AssociatedControlID="Password" CssClass="form-label">Password<span class="text-danger">*</span></asp:Label>

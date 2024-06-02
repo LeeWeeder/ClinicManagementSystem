@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ClinicManagementSystem.Admin {
+namespace ClinicManagementSystem.AdminPage {
     
     
-    public partial class AdminPage {
+    public partial class EditStaffDetails {
         
         /// <summary>
         /// ErrorMessage control.
@@ -67,15 +67,6 @@ namespace ClinicManagementSystem.Admin {
         protected global::System.Web.UI.WebControls.RadioButtonList SexAtBirth;
         
         /// <summary>
-        /// DepartmentDropDownList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DepartmentDropDownList;
-        
-        /// <summary>
         /// ClinicRoleDropDownList control.
         /// </summary>
         /// <remarks>
@@ -85,13 +76,22 @@ namespace ClinicManagementSystem.Admin {
         protected global::System.Web.UI.WebControls.DropDownList ClinicRoleDropDownList;
         
         /// <summary>
-        /// Username control.
+        /// DepartmentContainer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Username;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DepartmentContainer;
+        
+        /// <summary>
+        /// DepartmentDropDownList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DepartmentDropDownList;
         
         /// <summary>
         /// EmailWithInputGroup control.

@@ -1,21 +1,12 @@
 ﻿$(document).ready(function () {
     $('#AppointmentType input').change(function () {
-       if ($(this).val() == 'Doctor appointment') {
-           $('#PhysiciansDropDownListContainer').removeClass('d-none').addClass('d-block');
+        if ($(this).val() == 'Doctor appointment') {
+            $('#PhysiciansDropDownListContainer').removeClass('d-none').addClass('d-block');
         } else {
-           $('#PhysiciansDropDownListContainer').removeClass('d-block').addClass('d-none');
+            $('#PhysiciansDropDownListContainer').removeClass('d-block').addClass('d-none');
         }
     });
 });
-
-
-var IsFirstTimeUserPrompt = new bootstrap.Modal(document.getElementById('IsFirstTimeUserPrompt'), {
-    backdrop: 'static',
-    keyboard: false
-});
-
-const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 
 function validateDate(sender, args) {
     var dateEntered = new Date(args.Value);

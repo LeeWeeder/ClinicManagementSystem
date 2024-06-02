@@ -16,11 +16,11 @@
                     <div class="row mb-3 mt-4">
                         <div class="col">
                             <div class="form-floating">
-                                <asp:TextBox runat="server" ID="Username" CssClass="form-control" placeholder="username" />
-                                <asp:Label runat="server" AssociatedControlID="Username" CssClass="form-label">Username</asp:Label>
+                                <asp:TextBox runat="server" ID="Email" CssClass="form-control" placeholder="email"/>
+                                <asp:Label runat="server" AssociatedControlID="Email" CssClass="form-label">Email</asp:Label>
                             </div>
-                            <asp:RequiredFieldValidator runat="server" ControlToValidate="Username"
-                                CssClass="text-danger" ErrorMessage="Email or username is required." Display="Dynamic" />
+                            <asp:RequiredFieldValidator runat="server" ControlToValidate="Email"
+                                CssClass="text-danger" ErrorMessage="Email is required." Display="Dynamic" />
                         </div>
                     </div>
                     <div class="row mb-3">

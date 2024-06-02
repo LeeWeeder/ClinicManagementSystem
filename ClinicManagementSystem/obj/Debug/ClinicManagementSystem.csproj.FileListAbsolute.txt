@@ -75,6 +75,8 @@ C:\Users\stude\ClinicManagementSystem\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\stude\ClinicManagementSystem\obj\Debug\ClinicManagementSystem.dll
 C:\Users\stude\ClinicManagementSystem\obj\Debug\ClinicManagementSystem.pdb
 C:\Users\stude\ClinicManagementSystem\obj\Debug\ClinicManagementSystem.csprojResolveAssemblyReference.cache
+C:\Users\stude\ClinicManagementSystem\ClinicManagementSystem\obj\Debug\ClinicManagementSystem.Migrations.AddPropertiesMigration.resources
+C:\Users\stude\ClinicManagementSystem\ClinicManagementSystem\obj\Debug\ClinicManagementSystem.csproj.GenerateResource.Cache
 C:\Users\stude\ClinicManagementSystem\ClinicManagementSystem\bin\ApplicationInsights.config
 C:\Users\stude\ClinicManagementSystem\ClinicManagementSystem\bin\roslyn\csc.exe
 C:\Users\stude\ClinicManagementSystem\ClinicManagementSystem\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -149,8 +151,6 @@ C:\Users\stude\ClinicManagementSystem\ClinicManagementSystem\bin\Microsoft.Owin.
 C:\Users\stude\ClinicManagementSystem\ClinicManagementSystem\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\stude\ClinicManagementSystem\ClinicManagementSystem\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\stude\ClinicManagementSystem\ClinicManagementSystem\bin\Microsoft.Owin.Security.OAuth.xml
-C:\Users\stude\ClinicManagementSystem\ClinicManagementSystem\obj\Debug\ClinicManagementSystem.Migrations.AddPropertiesMigration.resources
-C:\Users\stude\ClinicManagementSystem\ClinicManagementSystem\obj\Debug\ClinicManagementSystem.csproj.GenerateResource.Cache
 C:\Users\stude\ClinicManagementSystem\ClinicManagementSystem\obj\Debug\ClinicManagementSystem.dll
 C:\Users\stude\ClinicManagementSystem\ClinicManagementSystem\obj\Debug\ClinicManagementSystem.pdb
 C:\Users\stude\ClinicManagementSystem\ClinicManagementSystem\obj\Debug\ClinicManagementSystem.csprojResolveAssemblyReference.cache

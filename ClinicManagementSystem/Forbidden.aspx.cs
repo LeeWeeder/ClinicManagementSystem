@@ -7,11 +7,19 @@ namespace ClinicManagementSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (HttpContext.Current.User.IsInRole("admin"))
+            if (HttpUtility.UrlDecode(Request.QueryString["ReturnUrl"]) == "/default.aspx")
             {
-                if (HttpUtility.UrlDecode(Request.QueryString["ReturnUrl"]) == "/default.aspx")
+                if (HttpContext.Current.User.IsInRole("admin"))
                 {
-                    Response.Redirect("~/Admin/Dashboard.aspx");
+                    Response.Redirect("~/AdminPage/AdminDashboard.aspx");
+                }
+                else if (HttpContext.Current.User.IsInRole("patient"))
+                {
+                    Response.Redirect("~/PatientPage/PatientDashboard.aspx");
+                }
+                else if (HttpContext.Current.User.IsInRole("staff"))
+                {
+                    Response.Redirect("~/StaffPage/StaffDashboard.aspx");
                 }
             }
         }

@@ -66,11 +66,22 @@ namespace ClinicManagementSystem
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (HttpContext.Current.User.IsInRole("admin"))
+            if (!HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                Admin.Visible = true;
-                Staff.Visible = false;
+                Anonymous.Visible = true;
             }
+            else
+            {
+                if (HttpContext.Current.User.IsInRole("admin"))
+                {
+                    Admin.Visible = true;
+                }
+                else if (HttpContext.Current.User.IsInRole("patient"))
+                {
+                    Patient.Visible = true;
+                }
+            }
+                
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)

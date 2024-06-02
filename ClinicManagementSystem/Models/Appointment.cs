@@ -18,17 +18,23 @@ namespace ClinicManagementSystem.Models
 
         public string AppointmentType { get; set; }
 
+        public string AppointmentStatus { get; set; }
+
+        public string AppointmentAttendingStaffName { get; set; }
+
         public Appointment() { }
 
         // With ID
         public Appointment(
             int AppointmentId,
-            int AppointmentPatientCaseId,
-            int AppointmentAttendingStaffId,
+            int? AppointmentPatientCaseId,
+            int? AppointmentAttendingStaffId,
             DateTime AppointmentDate,
             DateTime AppointmentStartTime,
             DateTime? AppointmentEndTime,
-            string AppointmentType
+            string AppointmentType,
+            string AppointmentStatus,
+            string AppointmentAttendingStaffName
         )
         {
             this.AppointmentId = AppointmentId;
@@ -38,36 +44,26 @@ namespace ClinicManagementSystem.Models
             this.AppointmentStartTime = AppointmentStartTime;
             this.AppointmentEndTime = AppointmentEndTime;
             this.AppointmentType = AppointmentType;
+            this.AppointmentStatus = AppointmentStatus;
+            this.AppointmentAttendingStaffName = AppointmentAttendingStaffName;
         }
 
         // Without ID
         public Appointment(
-            int AppointmentPatientCaseId,
-            int AppointmentAttendingStaffId,
+            int? AppointmentPatientCaseId,
+            int? AppointmentAttendingStaffId,
             DateTime AppointmentDate,
             DateTime AppointmentStartTime,
-            DateTime? AppointmentEndTime,
-            string AppointmentType
+            string AppointmentType,
+            string AppointmentAttendingStaffName
         )
         {
             this.AppointmentPatientCaseId = AppointmentPatientCaseId;
             this.AppointmentAttendingStaffId = AppointmentAttendingStaffId;
             this.AppointmentDate = AppointmentDate;
             this.AppointmentStartTime = AppointmentStartTime;
-            this.AppointmentEndTime = AppointmentEndTime;
             this.AppointmentType = AppointmentType;
-        }
-
-        // For checking
-        public Appointment(
-            int? AppointmentAttendingStaffId,
-            DateTime AppointmentDate,
-            DateTime AppointmentStartTime
-        )
-        {
-            this.AppointmentAttendingStaffId = AppointmentAttendingStaffId;
-            this.AppointmentDate = AppointmentDate;
-            this.AppointmentStartTime = AppointmentStartTime;
+            this.AppointmentAttendingStaffName = AppointmentAttendingStaffName;
         }
     }
 }

@@ -7,72 +7,63 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ClinicManagementSystem.App_Pages {
+namespace ClinicManagementSystem.AdminPage {
     
     
-    public partial class BookAppointment {
+    public partial class AdminDashboard {
         
         /// <summary>
-        /// PatientCaseRow control.
+        /// NumberOfActivePhysicians control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl PatientCaseRow;
+        protected global::System.Web.UI.WebControls.Label NumberOfActivePhysicians;
         
         /// <summary>
-        /// PatientCaseDropDownList control.
+        /// NumberOfActivePatients control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList PatientCaseDropDownList;
+        protected global::System.Web.UI.WebControls.Label NumberOfActivePatients;
         
         /// <summary>
-        /// AppointmentDate control.
+        /// NumberOfNurses control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AppointmentDate;
+        protected global::System.Web.UI.WebControls.Label NumberOfNurses;
         
         /// <summary>
-        /// AppointmentStartTime control.
+        /// NumberOfLaboratoryPersonnel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AppointmentStartTime;
+        protected global::System.Web.UI.WebControls.Label NumberOfLaboratoryPersonnel;
         
         /// <summary>
-        /// AppointmentType control.
+        /// NumberOfPharmacists control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList AppointmentType;
+        protected global::System.Web.UI.WebControls.Label NumberOfPharmacists;
         
         /// <summary>
-        /// PhysiciansDropDownList control.
+        /// NumberOfAssistivePersonnel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList PhysiciansDropDownList;
-        
-        /// <summary>
-        /// CheckAvailabilityButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button CheckAvailabilityButton;
+        protected global::System.Web.UI.WebControls.Label NumberOfAssistivePersonnel;
     }
 }

@@ -10,7 +10,6 @@
         public string Department { get; set; }
         public string Email { get; set; }
         public string ContactNumber { get; set; }
-        public string Username { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
@@ -18,7 +17,7 @@
 
         public StaffWithDetails() { }
 
-        public StaffWithDetails(int Id, bool IsActive, string SexAtBirth, string ClinicRole, string Department, string Email, string ContactNumber, string Username, string FirstName, string MiddleName, string LastName, string AspNetUsersId)
+        public StaffWithDetails(int Id, bool IsActive, string SexAtBirth, string ClinicRole, string Department, string Email, string ContactNumber, string FirstName, string MiddleName, string LastName, string AspNetUsersId)
         {
             this.Id = Id;
             this.IsActive = IsActive;
@@ -27,7 +26,6 @@
             this.SexAtBirth = SexAtBirth;
             this.Email = Email;
             this.ContactNumber = ContactNumber;
-            this.Username = Username;
             this.FirstName = FirstName;
             this.MiddleName = MiddleName;
             this.LastName = LastName;

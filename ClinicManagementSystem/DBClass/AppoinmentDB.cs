@@ -7,31 +7,6 @@ namespace ClinicManagementSystem.DBClass
 {
     public static class AppointmentDB
     {
-        public static bool IsAppointmentAvailable(Appointment appointment)
-        {
-            using (SqlConnection conn = DatabaseConnection.GetConnection())
-            {
-                string checkQuery = "SELECT COUNT(*) as CountWithinRange FROM Appointment WHERE AppointmentStartTime BETWEEN CAST(DATEADD(minute, -20, @StartTime) AS time) AND CAST(DATEADD(minute, 20, @StartTime) AS time) AND AppointmentDate != @AppointmentDate AND AppointmentAttendingStaffId != @AppointmentAttendingStaffId";
-
-                using (SqlCommand checkCmd = new SqlCommand(checkQuery, conn))
-                {
-                    checkCmd.Parameters.AddWithValue("@StartTime", appointment.AppointmentStartTime);
-                    checkCmd.Parameters.AddWithValue("@AppointmentDate", appointment.AppointmentDate);
-                    checkCmd.Parameters.AddWithValue("@AppointmentAttendingStaffId", appointment.AppointmentAttendingStaffId);
-
-                    conn.Open();
-                    int existingAppointments = (int)checkCmd.ExecuteScalar();
-
-                    if (existingAppointments > 0)
-                    {
-                        return false;
-                    }
-
-                    return true;
-                }
-            }
-        }
-
         public static int InsertAppointment(Appointment appointment)
         {
             using (SqlConnection conn = DatabaseConnection.GetConnection())
@@ -95,7 +70,7 @@ namespace ClinicManagementSystem.DBClass
 
             using (SqlConnection conn = DatabaseConnection.GetConnection())
             {
-                string query = "SELECT * FROM Appointment";
+                string query = "SELECT Appointment.AppointmentId, Appointment.AppointmentPatientCaseId, Appointment.AppointmentAttendingStaffId, Appointment.AppointmentDate, Appointment.AppointmentType, Appointment.AppointmentStatus, CAST(Appointment.AppointmentStartTime AS DATETIME) AS 'AppointmentStartTime', CAST(Appointment.AppointmentEndTime AS DATETIME) AS 'AppointmentEndTime', CONCAT(AspNetUsers.FirstName, ' ', AspNetUsers.LastName) AS 'FullName' FROM Appointment LEFT JOIN Staff ON Appointment.AppointmentAttendingStaffId = Staff.StaffId JOIN AspNetUsers ON Staff.StaffAspNetUsersId = AspNetUsers.Id";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -108,12 +83,53 @@ namespace ClinicManagementSystem.DBClass
                             Appointment appointment = new Appointment
                             {
                                 AppointmentId = Convert.ToInt32(reader["AppointmentId"]),
-                                AppointmentPatientCaseId = Convert.ToInt32(reader["AppointmentPatientCaseId"]),
-                                AppointmentAttendingStaffId = Convert.ToInt32(reader["AppointmentAttendingStaffId"]),
+                                AppointmentPatientCaseId = reader["AppointmentPatientCaseId"] as int?,
+                                AppointmentAttendingStaffId = reader["AppointmentAttendingStaffId"] as int?,
                                 AppointmentDate = Convert.ToDateTime(reader["AppointmentDate"]),
                                 AppointmentStartTime = Convert.ToDateTime(reader["AppointmentStartTime"]),
                                 AppointmentEndTime = reader["AppointmentEndTime"] as DateTime?,
-                                AppointmentType = reader["AppointmentType"].ToString()
+                                AppointmentType = reader["AppointmentType"].ToString(),
+                                AppointmentStatus = reader["AppointmentStatus"].ToString(),
+                                AppointmentAttendingStaffName = reader["FullName"].ToString()
+                            };
+
+                            appointments.Add(appointment);
+                        }
+                    }
+                }
+            }
+
+            return appointments;
+        }
+
+        public static List<Appointment> GetAppointmentsByPatientId(int patientId)
+        {
+            List<Appointment> appointments = new List<Appointment>();
+
+            using (SqlConnection conn = DatabaseConnection.GetConnection())
+            {
+                string query = "SELECT Appointment.AppointmentId, Appointment.AppointmentPatientCaseId, Appointment.AppointmentAttendingStaffId, Appointment.AppointmentDate, Appointment.AppointmentType, Appointment.AppointmentStatus, CAST(Appointment.AppointmentStartTime AS DATETIME) AS 'AppointmentStartTime', CAST(Appointment.AppointmentEndTime AS DATETIME) AS 'AppointmentEndTime', CONCAT(AspNetUsers.FirstName, ' ', AspNetUsers.LastName) AS 'FullName' FROM Appointment LEFT JOIN Staff ON Appointment.AppointmentAttendingStaffId = Staff.StaffId JOIN AspNetUsers ON Staff.StaffAspNetUsersId = AspNetUsers.Id JOIN PatientCase ON Appointment.AppointmentPatientCaseId = PatientCase.PatientCaseId WHERE PatientCase.PatientCasePatientId = @PatientId";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@PatientId", patientId);
+                    conn.Open();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Appointment appointment = new Appointment
+                            {
+                                AppointmentId = Convert.ToInt32(reader["AppointmentId"]),
+                                AppointmentPatientCaseId = reader["AppointmentPatientCaseId"] as int?,
+                                AppointmentAttendingStaffId = reader["AppointmentAttendingStaffId"] as int?,
+                                AppointmentDate = Convert.ToDateTime(reader["AppointmentDate"]),
+                                AppointmentStartTime = Convert.ToDateTime(reader["AppointmentStartTime"]),
+                                AppointmentEndTime = reader["AppointmentEndTime"] as DateTime?,
+                                AppointmentType = reader["AppointmentType"].ToString(),
+                                AppointmentStatus = reader["AppointmentStatus"].ToString(),
+                                AppointmentAttendingStaffName = reader["FullName"].ToString()
                             };
 
                             appointments.Add(appointment);

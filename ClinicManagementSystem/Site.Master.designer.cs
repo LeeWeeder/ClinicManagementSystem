@@ -13,13 +13,13 @@ namespace ClinicManagementSystem {
     public partial class SiteMaster {
         
         /// <summary>
-        /// Staff control.
+        /// Anonymous control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Staff;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Anonymous;
         
         /// <summary>
         /// LoginView control.
@@ -38,6 +38,24 @@ namespace ClinicManagementSystem {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Admin;
+        
+        /// <summary>
+        /// Staff control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Staff;
+        
+        /// <summary>
+        /// Patient control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Patient;
         
         /// <summary>
         /// MainContent control.
